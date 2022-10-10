@@ -8,7 +8,7 @@ import com.carrasco.agenda.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val contacts = (1..100).map {
-        Contact("Nombre $it", "Telefono $it","Email $it","https://loremflickr.com/240/320/face?lock=$it")
+        Contact("Nombre $it", "$it$it$it$it$it$it","$it@correo.com","https://loremflickr.com/240/320/face?lock=$it")
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

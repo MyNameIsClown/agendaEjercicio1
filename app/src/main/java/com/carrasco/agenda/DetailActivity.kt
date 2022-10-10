@@ -1,5 +1,7 @@
 package com.carrasco.agenda
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -24,10 +26,23 @@ class DetailActivity : AppCompatActivity() {
             binding.llamar.setOnClickListener(){
                 val msg = "Llamando al ${contact.telefono}"
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+
+                val intentCall = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:${contact.telefono}")
+                }
+                startActivity(intentCall)
             }
             binding.enviar.setOnClickListener(){
                 val msg = "Enviando Email a ${contact.email}"
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+
+                val intentEmail = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+                    putExtra(Intent.EXTRA_EMAIL, contact.email)
+                    putExtra(Intent.EXTRA_SUBJECT, "Correo para ${contact.nombre}")
+                    putExtra(Intent.EXTRA_TEXT, "Texto del correo para ${contact.nombre}")
+                }
+                startActivity(intentEmail)
             }
         }
     }
