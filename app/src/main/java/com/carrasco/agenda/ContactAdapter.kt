@@ -3,6 +3,7 @@ package com.carrasco.agenda
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.carrasco.agenda.databinding.ViewContactItemBinding
@@ -33,7 +34,7 @@ class ContactAdapter(private val contacts : List<Contact>, private val contactCl
             binding.nombre.text = contact.nombre
             binding.telefono.text = contact.telefono
             binding.email.text = contact.email
-            Glide.with(binding.root.context).load(contact.imageURL).into(binding.image)
+            binding.image.glide(contact.imageURL)
         }
 
     }

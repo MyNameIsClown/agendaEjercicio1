@@ -2,30 +2,29 @@ package com.carrasco.agenda
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.carrasco.agenda.databinding.ActivityDetailBinding
+import com.carrasco.agenda.databinding.DetailFragmentBinding
 
-class DetailActivity : AppCompatActivity() {
+class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     companion object{
-        const val EXTRA_CONTACT = "DetailActivity:contact"
+        const val EXTRA_CONTACT = "DetailFragment:contact"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         super.onCreate(savedInstanceState)
-        val binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val contact = intent.getParcelableExtra<Contact>(EXTRA_CONTACT)
+        val binding = DetailFragmentBinding.bind(view)
+        val contact = arguments?.getParcelable<Contact>(EXTRA_CONTACT)
 
         if(contact!=null){
             binding.name.text = contact.nombre
             Glide.with(binding.root.context).load(contact.imageURL).into(binding.detailImage)
             binding.llamar.setOnClickListener(){
                 val msg = "Llamando al ${contact.telefono}"
-                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
                 val intentCall = Intent(Intent.ACTION_DIAL).apply {
                     data = Uri.parse("tel:${contact.telefono}")
@@ -34,7 +33,6 @@ class DetailActivity : AppCompatActivity() {
             }
             binding.enviar.setOnClickListener(){
                 val msg = "Enviando Email a ${contact.email}"
-                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
                 val intentEmail = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
